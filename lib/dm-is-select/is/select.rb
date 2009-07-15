@@ -60,6 +60,8 @@ module DataMapper
         #   * :prompt [String/Boolean] =>  The text shown on the <tt><select></tt> field in the browser. (Defaults to "Select NameOfYourModel")
         #   * :divider [Boolean] =>  Whether to add a divider/separator between the prompt and the main options. (Defaults to +true+)
         #   * :order [Array]  =>  A normal DM order declaration.  (Defaults to [:name] or the name of the select_field declared)
+        #   * :show_root [Boolean] => Whether to add the Top Level Parent in the choices. (Defaults to +true+)
+        #   * :root_text [String] => The text to show as the Parent item in select list. (Defaults to "Top Level NameOfYourModel")
         #  
         # ==== Examples
         # 
@@ -78,12 +80,22 @@ module DataMapper
         #   Category.items_for_select_menu(:order => [ :id.desc ] )  
         #     => array with the order reversed. (Prompts & divider always comes first)
         # 
+        # If your model is a Tree:
+        # 
+        #   Category.items_for_select_menu(:root_text => "Custom Root Text")  # sets the text for the Top Level (root) Parent
+        #     => [ ..., ['Custom Root Text', 0],...]
+        #   
+        #   Category.items_for_select_menu(:show_root => false)  # removes the Top Level (root) Parent from the
+        # 
+        # 
         # @api public
         def items_for_select_menu(options={}) 
           options = {
-            :prompt => "Select #{self.name.capitalize}",
+            :prompt => "Select #{self.name}",
             :divider => true,
             :order => [self.select_field.to_sym],
+            :show_root => true,
+            :root_text => "Top Level #{self.name}",
           }.merge(options)
           
           mi = self.select_options[:is_tree] ?  
@@ -94,6 +106,12 @@ module DataMapper
           if options[:prompt]
             res << [options[:prompt],nil] 
             res << ["  ------  ",'nil'] if options[:divider]
+            if self.select_options[:is_tree]
+              if options[:show_root]
+                res << [options[:root_text], 0] 
+                res << ["  ------  ",'nil'] if options[:divider]
+              end
+            end
           end
           
           if self.select_options[:is_tree]

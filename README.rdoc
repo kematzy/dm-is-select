@@ -17,7 +17,6 @@ The plugin depends upon the following:
 * dm-core ( >= 0.10.0)
 * dm-more ( >= 0.10.0) [not really, but your code will depend upon it]
 
-<br>
 
 <b>NB!</b> The plugin has been developed for and on DM's next branch[http://github.com/datamapper/dm-core/tree/next], so may NOT work on previous incarnations.
 
@@ -111,6 +110,8 @@ Then you can just use this
   [
     ["Choose Parent", nil], 
     ["  ------  ", "nil"], 
+    ["Top Level Category", 0],
+    ["  ------  ", "nil"], 
     ["Parent-1", 1], 
     ["-- Parent-1-Child", 2], 
     ["-- -- Parent-1-Child-GrandChild", 3],
@@ -121,6 +122,27 @@ Then you can just use this
   
 <b>NB!</b> It only supports 3 levels at this point in time, as I think that's enough in most use cases, 
 but IF not, fix the code and let me know and I'll add it.
+
+Cool, but that "Top Level Category" node is a bit ugly, but easily fixed. 
+
+  Category.items_for_select_menu( :root_text => "1st Parent (root)" )
+
+...gives you:
+  
+  [
+    ...<snip>...
+    ["  ------  ", "nil"], 
+    ["1st Parent (root)", 0],
+    ["  ------  ", "nil"], 
+    ...<snip>...
+  ]
+
+You can even remove it all together by doing this:
+
+  Category.items_for_select_menu( :show_root => false )
+
+
+
 
 Obviously all the config options from above works with Tree models as well.
 

@@ -12,7 +12,7 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
       is :select, :name
       
       auto_migrate!
-    end #/ Category
+    end 
     
     class TreeCategory
       include DataMapper::Resource
@@ -23,7 +23,7 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
       is :select, :name, :is_tree => true 
       
       auto_migrate!
-    end #/ TreeCategory
+    end
     
     
     5.times do |n| 
@@ -74,7 +74,7 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
       
       describe "#items_for_select_menu" do 
         
-        describe "Normal Model" do 
+        describe "A Normal Model" do 
           
           it "should return the default select options when given no params" do 
             Category.items_for_select_menu.should == [ 
@@ -152,7 +152,9 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
           
           it "should return the default select options when given no params" do 
             TreeCategory.items_for_select_menu.should == [
-              ["Select Treecategory", nil], 
+              ["Select TreeCategory", nil], 
+              ["  ------  ", "nil"], 
+              ["Top Level TreeCategory", 0],
               ["  ------  ", "nil"], 
               ["TreeCategory-1", 1], 
               ["-- TreeCategory-1-Child", 2], 
@@ -165,7 +167,9 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
           
           it "should return the select options with reversed order when given :order => DESC" do 
             TreeCategory.items_for_select_menu(:order => [ :id.desc ] ).should == [
-              ["Select Treecategory", nil], 
+              ["Select TreeCategory", nil], 
+              ["  ------  ", "nil"], 
+              ["Top Level TreeCategory", 0],
               ["  ------  ", "nil"], 
               ["TreeCategory-2", 4], 
               ["-- TreeCategory-2-Child", 5], 
@@ -173,6 +177,34 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
               ["TreeCategory-1", 1], 
               ["-- TreeCategory-1-Child", 2], 
               ["-- -- TreeCategory-1-Child-GrandChild", 3]
+            ]
+          end
+          
+          it "should return the select options without the Top Level Parent when given :show_root => false" do 
+            TreeCategory.items_for_select_menu(:show_root => false).should == [
+              ["Select TreeCategory", nil], 
+              ["  ------  ", "nil"], 
+              ["TreeCategory-1", 1], 
+              ["-- TreeCategory-1-Child", 2], 
+              ["-- -- TreeCategory-1-Child-GrandChild", 3],
+              ["TreeCategory-2", 4], 
+              ["-- TreeCategory-2-Child", 5], 
+              ["-- -- TreeCategory-2-Child-GrandChild", 6]
+            ]
+          end
+          
+          it "should return the select options with custom text for the Top Level Parent when given :root_text => ?" do 
+            TreeCategory.items_for_select_menu(:root_text => "Custom Top Level Text").should == [
+              ["Select TreeCategory", nil], 
+              ["  ------  ", "nil"], 
+              ["Custom Top Level Text", 0],
+              ["  ------  ", "nil"], 
+              ["TreeCategory-1", 1], 
+              ["-- TreeCategory-1-Child", 2], 
+              ["-- -- TreeCategory-1-Child-GrandChild", 3],
+              ["TreeCategory-2", 4], 
+              ["-- TreeCategory-2-Child", 5], 
+              ["-- -- TreeCategory-2-Child-GrandChild", 6]
             ]
           end
           
