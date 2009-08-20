@@ -8,6 +8,7 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
       include DataMapper::Resource
       property :id, Serial
       property :name, String
+      property :publish_status, String, :default => "on"
       
       is :select, :name
       
@@ -18,13 +19,13 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
       include DataMapper::Resource
       property :id, Serial
       property :name, String
+      property :publish_status, String, :default => "on"
       
       is :tree, :order => :name
       is :select, :name, :is_tree => true 
       
       auto_migrate!
     end
-    
     
     5.times do |n| 
       Category.create(:name => "Category #{n+1}")
@@ -146,6 +147,33 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
             ]
           end
           
+          it "should respect the SQL select options" do 
+            c = Category.get(1)
+            c.publish_status = 'off'
+            c.save
+            
+            Category.items_for_select_menu(:publish_status => "on", :order => [ :id.desc ] ).should == [ 
+              ["Select Category", nil], 
+              ["  ------  ", "nil"], 
+              ["Category 5", 5],
+              ["Category 4", 4], 
+              ["Category 3", 3], 
+              ["Category 2", 2], 
+              # ["Category 1", 1] 
+            ]
+          end
+          it "should handle invalid SQL select options" do 
+            Category.items_for_select_menu(:publish_status => "invalid", :order => [ :id.desc ] ).should == [ 
+              ["Select Category", nil], 
+              ["  ------  ", "nil"], 
+              # ["Category 5", 5],
+              # ["Category 4", 4], 
+              # ["Category 3", 3], 
+              # ["Category 2", 2], 
+              # ["Category 1", 1] 
+            ]
+          end
+          
         end #/ Normal Model
         
         describe "Tree Model" do 
@@ -205,6 +233,40 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
               ["TreeCategory-2", 4], 
               ["-- TreeCategory-2-Child", 5], 
               ["-- -- TreeCategory-2-Child-GrandChild", 6]
+            ]
+          end
+          
+          it "should respect the SQL select options" do 
+            c = TreeCategory.get(1)
+            c.publish_status = 'off'
+            c.save
+            
+            TreeCategory.items_for_select_menu( :publish_status => "on", :order => [ :id.desc ] ).should == [
+              ["Select TreeCategory", nil], 
+              ["  ------  ", "nil"], 
+              ["Top Level TreeCategory", 0],
+              ["  ------  ", "nil"], 
+              ["TreeCategory-2", 4], 
+              ["-- TreeCategory-2-Child", 5], 
+              ["-- -- TreeCategory-2-Child-GrandChild", 6], 
+              # ["TreeCategory-1", 1], 
+              # ["-- TreeCategory-1-Child", 2], 
+              # ["-- -- TreeCategory-1-Child-GrandChild", 3]
+            ]
+          end
+          
+          it "should handle invalid SQL select options" do 
+            TreeCategory.items_for_select_menu( :publish_status => "invalid", :order => [ :id.desc ] ).should == [
+              ["Select TreeCategory", nil], 
+              ["  ------  ", "nil"], 
+              ["Top Level TreeCategory", 0],
+              ["  ------  ", "nil"], 
+              # ["TreeCategory-2", 4], 
+              # ["-- TreeCategory-2-Child", 5], 
+              # ["-- -- TreeCategory-2-Child-GrandChild", 6], 
+              # ["TreeCategory-1", 1], 
+              # ["-- TreeCategory-1-Child", 2], 
+              # ["-- -- TreeCategory-1-Child-GrandChild", 3]
             ]
           end
           

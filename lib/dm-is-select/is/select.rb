@@ -17,7 +17,7 @@ module DataMapper
       # 
       # * :field_name   => the name of the field values shown in select
       # * :options  
-      #   * :is_tree  =>  whether if the current Model is an is :tree model
+      #   * :is_tree  =>  whether if the current Model is an is :tree model. (Defaults to false)
       # 
       # ==== Examples
       # 
@@ -36,7 +36,7 @@ module DataMapper
         
         @select_options = {
           # add specical features if we are working with Tree Model
-          :is_tree => false, 
+          :is_tree => false
         }.merge(options)
         
         @select_field = select_field
@@ -80,6 +80,9 @@ module DataMapper
         #   Category.items_for_select_menu(:order => [ :id.desc ] )  
         #     => array with the order reversed. (Prompts & divider always comes first)
         # 
+        #   Category.items_for_select_menu(:publish_status => "on", :order => [ :id.desc ] )  
+        #     => returns only those items that matches the query params or just an empty Select Menu
+        # 
         # If your model is a Tree:
         # 
         #   Category.items_for_select_menu(:root_text => "Custom Root Text")  # sets the text for the Top Level (root) Parent
@@ -89,18 +92,27 @@ module DataMapper
         # 
         # 
         # @api public
-        def items_for_select_menu(options={}) 
+        def items_for_select_menu(options = {}) 
+          # clean out the various parts
+          html_options = options.only(:prompt, :divider, :show_root, :root_text)
+          sql_options = options.except(:prompt, :divider, :show_root, :root_text)
+          # puts "sql_options=[#{sql_options.inspect}] [#{__FILE__}:#{__LINE__}]"
+          # puts "html_options=[#{html_options.inspect}] [#{__FILE__}:#{__LINE__}]"
+          
           options = {
             :prompt => "Select #{self.name}",
             :divider => true,
-            :order => [self.select_field.to_sym],
             :show_root => true,
             :root_text => "Top Level #{self.name}",
-          }.merge(options)
+          }.merge(html_options)
+          
+          sql_options = {
+            :order => [self.select_field.to_sym],
+          }.merge(sql_options)
           
           mi = self.select_options[:is_tree] ?  
-            all(:parent_id => 0, :order => options[:order] ) :  
-            all(:order => options[:order])
+            all({ :parent_id => 0 }.merge(sql_options) ) :  
+            all(sql_options)
           
           res = []
           if options[:prompt]
