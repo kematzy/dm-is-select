@@ -6,7 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "dm-is-select"
     # gem.version = IO.read('VERSION')
-    gem.summary = %Q{A DataMapper plugin that makes getting the <tt><select></tt> options from a Model easier.}
+    gem.summary = %Q{A DataMapper plugin that makes getting the <tt>select</tt> options from a Model easier.}
     gem.description = gem.summary
     gem.email = "kematzy@gmail.com"
     gem.homepage = "http://github.com/kematzy/dm-is-select"

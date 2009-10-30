@@ -2,3 +2,23 @@
 
 * Release!
 
+=== 0.0.2 / 2009-07-15
+
+* Added Top Level Parent support in output.
+
+=== 0.0.3 /  2009-08-20
+
+* Fixed rendering bug in gem server when the description contained the <tt><select></tt> tag
+* Converted History.txt to .rdoc
+* Improved the Rakefile docs output
+* Added support for custom SQL queries.
+
+
+=== 0.0.4 / 2009-10-30
+
+* Changed the output order of options array from [key, value] to [value, key] to link with options better.
+
+=== 0.0.5 / 2009-10-30
+
+* Somehow reintroduced the rendering bug in the gemspec description fixed in 0.0.3
+* Updated History.rdoc
