@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{dm-is-select}
-  s.version = "0.0.4"
+  s.version = "0.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["kematzy"]
   s.date = %q{2009-10-30}
-  s.description = %q{A DataMapper plugin that makes getting the <tt><select></tt> options from a Model easier.}
+  s.description = %q{A DataMapper plugin that makes getting the <tt>select</tt> options from a Model easier.}
   s.email = %q{kematzy@gmail.com}
   s.extra_rdoc_files = [
     "History.rdoc",
@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{A DataMapper plugin that makes getting the <tt><select></tt> options from a Model easier.}
+  s.summary = %q{A DataMapper plugin that makes getting the <tt>select</tt> options from a Model easier.}
   s.test_files = [
     "spec/integration/select_spec.rb",
      "spec/spec_helper.rb"
