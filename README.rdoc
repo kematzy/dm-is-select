@@ -5,10 +5,10 @@ A DataMapper plugin that makes getting the <tt><select></tt> options from a Mode
 
 == Installation
 
-  #  Add GitHub to your RubyGems sources 
-  $  gem sources -a http://gems.github.com
+  #  Add Gemcutter to your RubyGems sources 
+  $  gem sources -a http://gemcutter.com
 
-  $  (sudo)? gem install kematzy-dm-is-select
+  $  (sudo)? gem install dm-is-select
   
 === Dependencies
 
@@ -42,13 +42,13 @@ Through that simple declaration you get the following class method ..
 ...which returns an Array with the Model items in a structured way, ready for use.
 
   [
-    ["Select Category", nil], 
-    ["  ------  ", "nil"], 
-    ["Category 1", 1], 
-    ["Category 2", 2], 
-    ["Category 3", 3], 
-    ["Category 4", 4], 
-    ["Category 5", 5]
+    [nil, "Select Category"], 
+    ["nil", "  ------  "], 
+    [1, "Category 1"], 
+    [2, "Category 2"], 
+    [3, "Category 3"], 
+    [4, "Category 4"], 
+    [5, "Category 5"]
   ]
 
 Great, but you don't want the prompt to say "Select Category", but 
@@ -59,9 +59,9 @@ Great, but you don't want the prompt to say "Select Category", but
 ...which returns the Array with the prompt changed
 
   [
-    ["Choose Whatever", nil], 
-    ["  ------  ", "nil"], 
-    ["Category 1", 1], 
+    [nil, "Choose Whatever"], 
+    ["nil", "  ------  "], 
+    [1, "Category 1"], 
     ...<snip>...
   ]
 
@@ -74,8 +74,8 @@ OK, but you don't like the divider node (2nd in output above). That’s fine, yo
 ...which returns the Array with the divider removed
 
   [
-    ["Select Category", nil], 
-    ["Category 1", 1], 
+    [nil, "Select Category"], 
+    [1, "Category 1"], 
     ...<snip>...
   ]
 
@@ -88,8 +88,8 @@ Hmm, fine, but I don't want either a prompt or a divider, you say. That's fine t
 ...which returns the Array with the prompt and divider removed
 
   [
-    ["Category 1", 1], 
-    ["Category 2", 1], 
+    [1, "Category 1"], 
+    [1, "Category 2"], 
     ...<snip>...
   ]
 
@@ -108,16 +108,16 @@ Then you can just use this
 ...and you get this nicely formatted <tt><select></tt> options array
 
   [
-    ["Choose Parent", nil], 
-    ["  ------  ", "nil"], 
-    ["Top Level Category", 0],
-    ["  ------  ", "nil"], 
-    ["Parent-1", 1], 
-    ["-- Parent-1-Child", 2], 
-    ["-- -- Parent-1-Child-GrandChild", 3],
-    ["Parent-2", 4], 
-    ["-- Parent-2-Child", 5], 
-    ["-- -- Parent-2-Child-GrandChild", 6]
+    [nil, "Choose Parent"], 
+    ["nil", "  ------  "], 
+    [0, "Top Level Category"],
+    ["nil", "  ------  "], 
+    [1, "Parent-1"], 
+    [2, "-- Parent-1-Child"], 
+    [3, "-- -- Parent-1-Child-GrandChild"],
+    [4, "Parent-2"], 
+    [5, "-- Parent-2-Child"], 
+    [6, "-- -- Parent-2-Child-GrandChild"]
   ]
   
 <b>NB!</b> It only supports 3 levels at this point in time, as I think that's enough in most use cases, 
@@ -131,9 +131,9 @@ Cool, but that "Top Level Category" node is a bit ugly, but easily fixed.
   
   [
     ...<snip>...
-    ["  ------  ", "nil"], 
-    ["1st Parent (root)", 0],
-    ["  ------  ", "nil"], 
+    ["nil", "  ------  "], 
+    [0, "1st Parent (root)"],
+    ["nil", "  ------  "], 
     ...<snip>...
   ]
 

@@ -66,16 +66,16 @@ module DataMapper
         # ==== Examples
         # 
         #   Category.items_for_select_menu  
-        #     => [ ['Select Category',nil], ['---', nil], ['Category 1',1] ,....]
+        #     => [ [nil, 'Select Category'], [nil, '---'], [1, 'Category 1'] ,....]
         #   
         #   Category.items_for_select_menu(:prompt => "Custom Prompt")  
-        #     => [ ['Custom Prompt',nil],...]
+        #     => [ [nil, 'Custom Prompt'],...]
         # 
         #   Category.items_for_select_menu(:prompt => false)  
-        #     => [ ['Category 1',1] ,...]
+        #     => [ [1, 'Category 1'] ,...]
         # 
         #   Category.items_for_select_menu(:divider => false )  
-        #     => array without the ['---', nil] node
+        #     => array without the [nil, '---'] node
         # 
         #   Category.items_for_select_menu(:order => [ :id.desc ] )  
         #     => array with the order reversed. (Prompts & divider always comes first)
@@ -86,7 +86,7 @@ module DataMapper
         # If your model is a Tree:
         # 
         #   Category.items_for_select_menu(:root_text => "Custom Root Text")  # sets the text for the Top Level (root) Parent
-        #     => [ ..., ['Custom Root Text', 0],...]
+        #     => [ ..., [0, 'Custom Root Text'],...]
         #   
         #   Category.items_for_select_menu(:show_root => false)  # removes the Top Level (root) Parent from the
         # 
@@ -116,31 +116,31 @@ module DataMapper
           
           res = []
           if options[:prompt]
-            res << [options[:prompt],nil] 
-            res << ["  ------  ",'nil'] if options[:divider]
+            res << [nil, options[:prompt]] 
+            res << ['nil', "  ------  "] if options[:divider]
             if self.select_options[:is_tree]
               if options[:show_root]
-                res << [options[:root_text], 0] 
-                res << ["  ------  ",'nil'] if options[:divider]
+                res << [0, options[:root_text]] 
+                res << ['nil',"  ------  "] if options[:divider]
               end
             end
           end
           
           if self.select_options[:is_tree]
             mi.each do |x|
-              res << [x.send(self.select_field), x.id]
+              res << [x.id, x.send(self.select_field)]
               unless x.children.blank?
                 x.children.each do |child|
-                  res << ["-- #{child.send(self.select_field)}", child.id]
+                  res << [child.id, "-- #{child.send(self.select_field)}"]
                   child.children.each do |grand_child| 
-                    res << ["-- -- #{grand_child.send(self.select_field)}", grand_child.id] 
+                    res << [ grand_child.id, "-- -- #{grand_child.send(self.select_field)}"] 
                   end unless child.children.blank?
                 end
               end
             end
           else
             mi.each do |x|
-              res << [x.send(self.select_field), x.id]
+              res << [x.id, x.send(self.select_field)]
             end
           end
           res

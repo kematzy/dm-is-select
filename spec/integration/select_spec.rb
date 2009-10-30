@@ -79,71 +79,71 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
           
           it "should return the default select options when given no params" do 
             Category.items_for_select_menu.should == [ 
-              ["Select Category", nil], 
-              ["  ------  ", "nil"], 
-              ["Category 1", 1], 
-              ["Category 2", 2], 
-              ["Category 3", 3], 
-              ["Category 4", 4], 
-              ["Category 5", 5]
+              [nil, "Select Category"], 
+              ["nil", "  ------  "], 
+              [1, "Category 1"], 
+              [2, "Category 2"], 
+              [3, "Category 3"], 
+              [4, "Category 4"], 
+              [5, "Category 5"]
             ]
           end
           
           it "should return the select options with custom prompt when given the  :prompt => ? " do 
             Category.items_for_select_menu(:prompt => "Custom Prompt " ).should == [ 
-              ["Custom Prompt ", nil], 
-              ["  ------  ", "nil"], 
-              ["Category 1", 1], 
-              ["Category 2", 2], 
-              ["Category 3", 3], 
-              ["Category 4", 4], 
-              ["Category 5", 5]
+              [nil, "Custom Prompt "], 
+              ["nil", "  ------  "], 
+              [1, "Category 1"], 
+              [2, "Category 2"], 
+              [3, "Category 3"], 
+              [4, "Category 4"], 
+              [5, "Category 5"]
             ]
           end
           
           it "should return the select options without a prompt & divider when given :prompt => false" do 
             Category.items_for_select_menu(:prompt => false ).should == [ 
-              ["Category 1", 1], 
-              ["Category 2", 2], 
-              ["Category 3", 3], 
-              ["Category 4", 4], 
-              ["Category 5", 5]
+              [1, "Category 1"], 
+              [2, "Category 2"], 
+              [3, "Category 3"], 
+              [4, "Category 4"], 
+              [5, "Category 5"]
             ]
           end
           
           it "should return the select options without a prompt & divider when given :prompt => true" do 
             #  TODO:: this should be reworked, but right now it's good enough 
             Category.items_for_select_menu(:prompt => true ).should == [ 
-              [true, nil],
-              ["  ------  ", "nil"],
-              ["Category 1", 1], 
-              ["Category 2", 2], 
-              ["Category 3", 3], 
-              ["Category 4", 4], 
-              ["Category 5", 5]
+              [nil, true],
+              ["nil", "  ------  "],
+              [1, "Category 1"], 
+              [2, "Category 2"], 
+              [3, "Category 3"], 
+              [4, "Category 4"], 
+              [5, "Category 5"]
             ]
           end
           
           it "should return the select options without the divider when given :divider => false" do 
             Category.items_for_select_menu(:divider => false ).should == [ 
-              ["Select Category", nil], 
-              ["Category 1", 1], 
-              ["Category 2", 2], 
-              ["Category 3", 3], 
-              ["Category 4", 4], 
-              ["Category 5", 5]
+              [nil, "Select Category"], 
+              [1, "Category 1"], 
+              [2, "Category 2"], 
+              [3, "Category 3"], 
+              [4, "Category 4"], 
+              [5, "Category 5"]
             ]
           end
           
           it "should return the select options with reversed order when given :order => DESC" do 
             Category.items_for_select_menu(:order => [ :id.desc ] ).should == [ 
-              ["Select Category", nil], 
-              ["  ------  ", "nil"], 
-              ["Category 5", 5],
-              ["Category 4", 4], 
-              ["Category 3", 3], 
-              ["Category 2", 2], 
-              ["Category 1", 1] 
+              [nil, "Select Category"], 
+              ["nil", "  ------  "], 
+              [5, "Category 5"],
+              [4, "Category 4"], 
+              [3, "Category 3"], 
+              [2, "Category 2"], 
+              [1, "Category 1"] 
             ]
           end
           
@@ -153,24 +153,24 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
             c.save
             
             Category.items_for_select_menu(:publish_status => "on", :order => [ :id.desc ] ).should == [ 
-              ["Select Category", nil], 
-              ["  ------  ", "nil"], 
-              ["Category 5", 5],
-              ["Category 4", 4], 
-              ["Category 3", 3], 
-              ["Category 2", 2], 
-              # ["Category 1", 1] 
+              [nil, "Select Category"], 
+              ["nil", "  ------  "], 
+              [5, "Category 5"],
+              [4, "Category 4"], 
+              [3, "Category 3"], 
+              [2, "Category 2"], 
+              # [1, "Category 1"] 
             ]
           end
           it "should handle invalid SQL select options" do 
             Category.items_for_select_menu(:publish_status => "invalid", :order => [ :id.desc ] ).should == [ 
-              ["Select Category", nil], 
-              ["  ------  ", "nil"], 
-              # ["Category 5", 5],
-              # ["Category 4", 4], 
-              # ["Category 3", 3], 
-              # ["Category 2", 2], 
-              # ["Category 1", 1] 
+              [nil, "Select Category"], 
+              ["nil", "  ------  "], 
+              # [5, "Category 5"],
+              # [4, "Category 4"], 
+              # [3, "Category 3"], 
+              # [2, "Category 2"], 
+              # [1, "Category 1"] 
             ]
           end
           
@@ -180,59 +180,59 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
           
           it "should return the default select options when given no params" do 
             TreeCategory.items_for_select_menu.should == [
-              ["Select TreeCategory", nil], 
-              ["  ------  ", "nil"], 
-              ["Top Level TreeCategory", 0],
-              ["  ------  ", "nil"], 
-              ["TreeCategory-1", 1], 
-              ["-- TreeCategory-1-Child", 2], 
-              ["-- -- TreeCategory-1-Child-GrandChild", 3],
-              ["TreeCategory-2", 4], 
-              ["-- TreeCategory-2-Child", 5], 
-              ["-- -- TreeCategory-2-Child-GrandChild", 6]
+              [nil, "Select TreeCategory"], 
+              ["nil", "  ------  "], 
+              [0, "Top Level TreeCategory"],
+              ["nil", "  ------  "], 
+              [1, "TreeCategory-1"], 
+              [2, "-- TreeCategory-1-Child"], 
+              [3, "-- -- TreeCategory-1-Child-GrandChild"],
+              [4, "TreeCategory-2"], 
+              [5, "-- TreeCategory-2-Child"], 
+              [6, "-- -- TreeCategory-2-Child-GrandChild"]
             ]
           end
           
           it "should return the select options with reversed order when given :order => DESC" do 
             TreeCategory.items_for_select_menu(:order => [ :id.desc ] ).should == [
-              ["Select TreeCategory", nil], 
-              ["  ------  ", "nil"], 
-              ["Top Level TreeCategory", 0],
-              ["  ------  ", "nil"], 
-              ["TreeCategory-2", 4], 
-              ["-- TreeCategory-2-Child", 5], 
-              ["-- -- TreeCategory-2-Child-GrandChild", 6], 
-              ["TreeCategory-1", 1], 
-              ["-- TreeCategory-1-Child", 2], 
-              ["-- -- TreeCategory-1-Child-GrandChild", 3]
+              [nil, "Select TreeCategory"], 
+              ["nil", "  ------  "], 
+              [0, "Top Level TreeCategory"],
+              ["nil", "  ------  "], 
+              [4, "TreeCategory-2"], 
+              [5, "-- TreeCategory-2-Child"], 
+              [6, "-- -- TreeCategory-2-Child-GrandChild"], 
+              [1, "TreeCategory-1"], 
+              [2, "-- TreeCategory-1-Child"], 
+              [3, "-- -- TreeCategory-1-Child-GrandChild"]
             ]
           end
           
           it "should return the select options without the Top Level Parent when given :show_root => false" do 
             TreeCategory.items_for_select_menu(:show_root => false).should == [
-              ["Select TreeCategory", nil], 
-              ["  ------  ", "nil"], 
-              ["TreeCategory-1", 1], 
-              ["-- TreeCategory-1-Child", 2], 
-              ["-- -- TreeCategory-1-Child-GrandChild", 3],
-              ["TreeCategory-2", 4], 
-              ["-- TreeCategory-2-Child", 5], 
-              ["-- -- TreeCategory-2-Child-GrandChild", 6]
+              [nil, "Select TreeCategory"], 
+              ["nil", "  ------  "], 
+              [1, "TreeCategory-1"], 
+              [2, "-- TreeCategory-1-Child"], 
+              [3, "-- -- TreeCategory-1-Child-GrandChild"],
+              [4, "TreeCategory-2"], 
+              [5, "-- TreeCategory-2-Child"], 
+              [6, "-- -- TreeCategory-2-Child-GrandChild"]
             ]
           end
           
           it "should return the select options with custom text for the Top Level Parent when given :root_text => ?" do 
             TreeCategory.items_for_select_menu(:root_text => "Custom Top Level Text").should == [
-              ["Select TreeCategory", nil], 
-              ["  ------  ", "nil"], 
-              ["Custom Top Level Text", 0],
-              ["  ------  ", "nil"], 
-              ["TreeCategory-1", 1], 
-              ["-- TreeCategory-1-Child", 2], 
-              ["-- -- TreeCategory-1-Child-GrandChild", 3],
-              ["TreeCategory-2", 4], 
-              ["-- TreeCategory-2-Child", 5], 
-              ["-- -- TreeCategory-2-Child-GrandChild", 6]
+              [nil, "Select TreeCategory"], 
+              ["nil", "  ------  "], 
+              [0, "Custom Top Level Text"],
+              ["nil", "  ------  "], 
+              [1, "TreeCategory-1"], 
+              [2, "-- TreeCategory-1-Child"], 
+              [3, "-- -- TreeCategory-1-Child-GrandChild"],
+              [4, "TreeCategory-2"], 
+              [5, "-- TreeCategory-2-Child"], 
+              [6, "-- -- TreeCategory-2-Child-GrandChild"]
             ]
           end
           
@@ -242,31 +242,31 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
             c.save
             
             TreeCategory.items_for_select_menu( :publish_status => "on", :order => [ :id.desc ] ).should == [
-              ["Select TreeCategory", nil], 
-              ["  ------  ", "nil"], 
-              ["Top Level TreeCategory", 0],
-              ["  ------  ", "nil"], 
-              ["TreeCategory-2", 4], 
-              ["-- TreeCategory-2-Child", 5], 
-              ["-- -- TreeCategory-2-Child-GrandChild", 6], 
-              # ["TreeCategory-1", 1], 
-              # ["-- TreeCategory-1-Child", 2], 
-              # ["-- -- TreeCategory-1-Child-GrandChild", 3]
+              [nil, "Select TreeCategory"], 
+              ["nil", "  ------  "], 
+              [0, "Top Level TreeCategory"],
+              ["nil", "  ------  "], 
+              [4, "TreeCategory-2"], 
+              [5, "-- TreeCategory-2-Child"], 
+              [6, "-- -- TreeCategory-2-Child-GrandChild"], 
+              # [1, "TreeCategory-1"], 
+              # [2, "-- TreeCategory-1-Child"], 
+              # [3, "-- -- TreeCategory-1-Child-GrandChild"]
             ]
           end
           
           it "should handle invalid SQL select options" do 
             TreeCategory.items_for_select_menu( :publish_status => "invalid", :order => [ :id.desc ] ).should == [
-              ["Select TreeCategory", nil], 
-              ["  ------  ", "nil"], 
-              ["Top Level TreeCategory", 0],
-              ["  ------  ", "nil"], 
-              # ["TreeCategory-2", 4], 
-              # ["-- TreeCategory-2-Child", 5], 
-              # ["-- -- TreeCategory-2-Child-GrandChild", 6], 
-              # ["TreeCategory-1", 1], 
-              # ["-- TreeCategory-1-Child", 2], 
-              # ["-- -- TreeCategory-1-Child-GrandChild", 3]
+              [nil, "Select TreeCategory"], 
+              ["nil", "  ------  "], 
+              [0, "Top Level TreeCategory"],
+              ["nil", "  ------  "], 
+              # [4, "TreeCategory-2"], 
+              # [5, "-- TreeCategory-2-Child"], 
+              # [6, "-- -- TreeCategory-2-Child-GrandChild"], 
+              # [1, "TreeCategory-1"], 
+              # [2, "-- TreeCategory-1-Child"], 
+              # [3, "-- -- TreeCategory-1-Child-GrandChild"]
             ]
           end
           
