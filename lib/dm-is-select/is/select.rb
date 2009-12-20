@@ -29,17 +29,23 @@ module DataMapper
       #       => creates a <select> options array with the results ordered in hierarchical order
       #          parent > child > grandchild for each parent
       #   
+      #   is :select, :name, :value_field => :code  
+      #       => creates a <select> options array with the results ordered in hierarchical order
+      #          parent > child > grandchild for each parent
+      #   
       # 
       # @api public
       def is_select(select_field = :name, options = {})
         raise ArgumentError, "The :select_field, must be an existing attribute in the Model. Got [ #{select_field.inspect} ]" unless properties.any?{ |p| p.name == select_field.to_sym }
         
         @select_options = {
+          :value_field => "id", 
           # add specical features if we are working with Tree Model
           :is_tree => false
         }.merge(options)
         
         @select_field = select_field
+        @value_field = @select_options[:value_field]
         
         
         # Add class & Instance methods
@@ -49,7 +55,7 @@ module DataMapper
       end
       
       module ClassMethods
-        attr_reader :select_field, :select_options
+        attr_reader :select_field, :select_options, :value_field
         
         ##
         # Provides the Model content in a ready to use <tt><select></tt> options array
@@ -128,19 +134,19 @@ module DataMapper
           
           if self.select_options[:is_tree]
             mi.each do |x|
-              res << [x.id, x.send(self.select_field)]
+              res << [x.send(self.value_field), x.send(self.select_field)]
               unless x.children.blank?
                 x.children.each do |child|
-                  res << [child.id, "-- #{child.send(self.select_field)}"]
+                  res << [child.send(self.value_field), "-- #{child.send(self.select_field)}"]
                   child.children.each do |grand_child| 
-                    res << [ grand_child.id, "-- -- #{grand_child.send(self.select_field)}"] 
+                    res << [ grand_child.send(self.value_field), "-- -- #{grand_child.send(self.select_field)}"] 
                   end unless child.children.blank?
                 end
               end
             end
           else
             mi.each do |x|
-              res << [x.id, x.send(self.select_field)]
+              res << [x.send(self.value_field), x.send(self.select_field)]
             end
           end
           res

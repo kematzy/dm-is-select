@@ -27,6 +27,16 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
       auto_migrate!
     end
     
+    
+    class Country
+      include DataMapper::Resource
+      property :code,     String, :key => true  
+      property :name,    String
+      is :select, :name, :value_field => :code 
+      
+      auto_migrate!
+    end #/ Country
+    
     5.times do |n| 
       Category.create(:name => "Category #{n+1}")
     end
@@ -38,6 +48,9 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
       grandchild = TreeCategory.create(:name => "TreeCategory-#{parent_id}-Child-GrandChild" , :parent_id => child.id )
     end
     
+    3.times do |i|
+      Country.create(:code => "A#{i}", :name => "Country#{i}")
+    end
     
     describe "Class Methods" do 
       
@@ -271,6 +284,22 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
           end
           
         end #/ Tree Model
+        
+        describe "A value_field model" do 
+          
+          it "should return the default select options when given no params" do 
+            Country.items_for_select_menu.should == [
+              [nil, "Select Country"], 
+              ["nil", "  ------  "], 
+              ['A0', "Country0"], 
+              ['A1', "Country1"], 
+              ['A2', "Country2"], 
+              # [4, "Country3"], 
+              # [5, "Country4"]
+            ]
+          end
+          
+        end #/ A value_field model
         
       end #/ #item_for_select_menu
       
