@@ -1,10 +1,8 @@
 require 'pathname'
 require 'rubygems'
 
-gem 'rspec', '~>1.2.6'
+# gem 'rspec', '~>1.2.6'
 require 'spec'
-# gem 'dm-is-tree', '~>0.10.0'
-# require 'dm-is-tree'
 
 require Pathname(__FILE__).dirname.expand_path.parent + 'lib/dm-is-select'
 

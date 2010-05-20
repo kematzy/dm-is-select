@@ -12,8 +12,8 @@ begin
     gem.homepage = "http://github.com/kematzy/dm-is-select"
     gem.authors = ["kematzy"]
     gem.extra_rdoc_files = %w[ README.rdoc LICENSE TODO History.rdoc ]
-    gem.add_dependency('dm-core', '>= 0.10.0')
-    gem.add_dependency('dm-more', '>= 0.10.0')
+    gem.add_dependency('dm-core', '>= 0.10.2')
+    # gem.add_dependency('dm-more', '>= 0.10.0')
     # gem.add_dependency('dm-validations', '>= 0.10.0')
     
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
@@ -26,6 +26,7 @@ end
 require 'spec/rake/spectask'
 Spec::Rake::SpecTask.new(:spec) do |spec|
   spec.libs << 'lib' << 'spec'
+  spec.spec_opts = ["--color", "--format", "nested", "--require", "spec/spec_helper.rb"]
   spec.spec_files = FileList['spec/**/*_spec.rb']
 end
 
