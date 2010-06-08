@@ -35,7 +35,7 @@ module DataMapper
       #   
       # 
       # @api public
-      def is_select(select_field = :name, options = {})
+      def is_select(select_field = :name, options = {}) 
         raise ArgumentError, "The :select_field, must be an existing attribute in the Model. Got [ #{select_field.inspect} ]" unless properties.any?{ |p| p.name == select_field.to_sym }
         
         @select_options = {
@@ -54,7 +54,7 @@ module DataMapper
         
       end
       
-      module ClassMethods
+      module ClassMethods 
         attr_reader :select_field, :select_options, :value_field
         
         ##
@@ -102,8 +102,6 @@ module DataMapper
           # clean out the various parts
           html_options = options.only(:prompt, :divider, :show_root, :root_text)
           sql_options = options.except(:prompt, :divider, :show_root, :root_text)
-          # puts "sql_options=[#{sql_options.inspect}] [#{__FILE__}:#{__LINE__}]"
-          # puts "html_options=[#{html_options.inspect}] [#{__FILE__}:#{__LINE__}]"
           
           options = {
             :prompt => "Select #{self.name}",
@@ -116,9 +114,7 @@ module DataMapper
             :order => [self.select_field.to_sym],
           }.merge(sql_options)
           
-          mi = self.select_options[:is_tree] ?  
-            all({ :parent_id => 0 }.merge(sql_options) ) :  
-            all(sql_options)
+          mi = self.select_options[:is_tree] ?  all({ :parent_id => nil }.merge(sql_options) ) :  all(sql_options)
           
           res = []
           if options[:prompt]

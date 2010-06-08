@@ -3,6 +3,7 @@ require 'rake'
 
 begin
   require 'jeweler'
+  
   Jeweler::Tasks.new do |gem|
     gem.name = "dm-is-select"
     # gem.version = IO.read('VERSION')
@@ -12,15 +13,16 @@ begin
     gem.homepage = "http://github.com/kematzy/dm-is-select"
     gem.authors = ["kematzy"]
     gem.extra_rdoc_files = %w[ README.rdoc LICENSE TODO History.rdoc ]
-    # gem.add_dependency('dm-core', '>= 1.0.0')
-    # gem.add_dependency('dm-more', '>= 0.10.0')
-    # gem.add_dependency('dm-validations', '>= 0.10.0')
-    
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.add_dependency 'dm-core',   '~> 1.0.0.rc3'
+    gem.add_development_dependency 'rspec',          '~> 1.3'
+    gem.add_development_dependency 'dm-migrations', '~> 1.0.0.rc3'
+    gem.add_development_dependency 'dm-validations', '~> 1.0.0.rc3'
   end
-
+  
+  Jeweler::GemcutterTasks.new
+  
 rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
+  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
 require 'spec/rake/spectask'
@@ -91,20 +93,3 @@ namespace :docs do
   end
   
 end
-
-
-# kept just as a reference for now. 
-# 
-# def sudo_gem(cmd)
-#   sh "#{SUDO} #{RUBY} -S gem #{cmd}", :verbose => false
-# end
-# 
-# desc "Install #{GEM_NAME} #{GEM_VERSION}"
-# task :install => [ :package ] do
-#   sudo_gem "install --local pkg/#{GEM_NAME}-#{GEM_VERSION} --no-update-sources"
-# end
-# 
-# desc "Uninstall #{GEM_NAME} #{GEM_VERSION}"
-# task :uninstall => [ :clobber ] do
-#   sudo_gem "uninstall #{GEM_NAME} -v#{GEM_VERSION} -Ix"
-# end

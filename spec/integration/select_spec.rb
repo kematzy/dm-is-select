@@ -4,53 +4,45 @@ require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
   describe 'DataMapper::Is::Select' do
     
-    class Category
-      include DataMapper::Resource
-      property :id, Serial
-      property :name, String
-      property :publish_status, String, :default => "on"
+    before(:each) do 
       
-      is :select, :name
+      class Category
+        include DataMapper::Resource
+        property :id, Serial
+        property :name, String
+        property :publish_status, String, :default => "on"
+        
+        is :select, :name
+      end 
       
-      auto_migrate!
-    end 
-    
-    class TreeCategory
-      include DataMapper::Resource
-      property :id, Serial
-      property :name, String
-      property :publish_status, String, :default => "on"
+      class TreeCategory
+        include DataMapper::Resource
+        property :id, Serial
+        property :name, String
+        property :publish_status, String, :default => "on"
+        # property :parent_id, Integer
+        
+        is :tree, :order => :name
+        is :select, :name, :is_tree => true 
+      end
       
-      is :tree, :order => :name
-      is :select, :name, :is_tree => true 
+      class Country
+        include DataMapper::Resource
+        property :code,     String, :key => true
+        property :name,    String
+        is :select, :name, :value_field => :code
+      end #/ Country
       
-      auto_migrate!
+      DataMapper.finalize
+      
+      DataMapper.auto_migrate!
+      
     end
     
-    
-    class Country
-      include DataMapper::Resource
-      property :code,     String, :key => true  
-      property :name,    String
-      is :select, :name, :value_field => :code 
-      
-      auto_migrate!
-    end #/ Country
-    
-    5.times do |n| 
-      Category.create(:name => "Category #{n+1}")
+    it "should use DM-Core 1.0.0.rc3" do
+      DataMapper::VERSION.should == '1.0.0.rc3'
     end
     
-    2.times do |parent_id|
-      parent_id += 1
-      parent = TreeCategory.create(:name => "TreeCategory-#{parent_id}" , :parent_id => 0 )
-      child = TreeCategory.create(:name => "TreeCategory-#{parent_id}-Child" , :parent_id => parent.id )
-      grandchild = TreeCategory.create(:name => "TreeCategory-#{parent_id}-Child-GrandChild" , :parent_id => child.id )
-    end
-    
-    3.times do |i|
-      Country.create(:code => "A#{i}", :name => "Country#{i}")
-    end
     
     describe "Class Methods" do 
       
@@ -64,8 +56,9 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
             property :name, String
             
             is :select, 'name'
-            auto_migrate!
           end 
+          
+          DataMapper.auto_migrate!
           
           }.should_not raise_error(ArgumentError)
         end
@@ -78,9 +71,9 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
             property :name, String
             
             is :select, :does_not_exist
-            auto_migrate!
           end 
           
+          DataMapper.auto_migrate!
           }.should raise_error(ArgumentError)
         end
         
@@ -89,6 +82,12 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
       describe "#items_for_select_menu" do 
         
         describe "A Normal Model" do 
+          
+          before(:each) do 
+            5.times do |n| 
+              Category.create(:name => "Category #{n+1}")
+            end
+          end
           
           it "should return the default select options when given no params" do 
             Category.items_for_select_menu.should == [ 
@@ -175,6 +174,7 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
               # [1, "Category 1"] 
             ]
           end
+          
           it "should handle invalid SQL select options" do 
             Category.items_for_select_menu(:publish_status => "invalid", :order => [ :id.desc ] ).should == [ 
               [nil, "Select Category"], 
@@ -190,6 +190,16 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
         end #/ Normal Model
         
         describe "Tree Model" do 
+          
+          before(:each) do 
+            2.times do |parent_id|
+              parent_id += 1
+              theparent = TreeCategory.create(:name => "TreeCategory-#{parent_id}") # sets parent_id => nil
+              child = TreeCategory.create(:name => "TreeCategory-#{parent_id}-Child" , :parent => theparent )
+              grandchild = TreeCategory.create(:name => "TreeCategory-#{parent_id}-Child-GrandChild" , :parent_id => child.id )
+            end
+            
+          end
           
           it "should return the default select options when given no params" do 
             TreeCategory.items_for_select_menu.should == [
@@ -286,6 +296,12 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
         end #/ Tree Model
         
         describe "A value_field model" do 
+          
+          before(:each) do 
+            3.times do |i|
+              Country.create(:code => "A#{i}", :name => "Country#{i}")
+            end
+          end
           
           it "should return the default select options when given no params" do 
             Country.items_for_select_menu.should == [
