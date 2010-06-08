@@ -14,12 +14,7 @@ A DataMapper plugin that makes getting the <tt><select></tt> options from a Mode
 
 The plugin depends upon the following:
 
-* dm-core ( >= 0.10.0)
-* dm-more ( >= 0.10.0) [not really, but your code will depend upon it]
-
-
-<b>NB!</b> The plugin has been developed for and on DM's next branch[http://github.com/datamapper/dm-core/tree/next], so may NOT work on previous incarnations.
-
+* dm-core ( >= 1.0.0)
 
 
 == Getting Started
@@ -30,9 +25,9 @@ Let's say you got a basic Category Model.
     include DataMapper::Resource
     property :id, Serial
     property :name, String
-  
+    
     is :select, :name
-  
+    
   end
     
 Through that simple declaration you get the following class method ..
