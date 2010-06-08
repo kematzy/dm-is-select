@@ -12,7 +12,7 @@ begin
     gem.homepage = "http://github.com/kematzy/dm-is-select"
     gem.authors = ["kematzy"]
     gem.extra_rdoc_files = %w[ README.rdoc LICENSE TODO History.rdoc ]
-    gem.add_dependency('dm-core', '>= 0.10.2')
+    # gem.add_dependency('dm-core', '>= 1.0.0')
     # gem.add_dependency('dm-more', '>= 0.10.0')
     # gem.add_dependency('dm-validations', '>= 0.10.0')
     

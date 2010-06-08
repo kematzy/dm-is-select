@@ -3,11 +3,11 @@ require 'rubygems'
 require 'pathname'
 
 # Add all external dependencies for the plugin here
-gem 'dm-core', '~> 0.10.0'
+# gem 'dm-core', '~> 0.10.0'
 require 'dm-core'
 # gem 'extlib', '~> 0.9.13'
 # require 'extlib'
-gem 'dm-is-tree', '~> 0.10.0'
+# gem 'dm-is-tree', '~> 0.10.0'
 require 'dm-is-tree'
 
 
