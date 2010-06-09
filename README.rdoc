@@ -8,7 +8,7 @@ A DataMapper plugin that makes getting the <tt><select></tt> options from a Mode
   #  Add Gemcutter to your RubyGems sources 
   $  gem sources -a http://gemcutter.com
 
-  $  (sudo)? gem install dm-is-select
+  $  gem install dm-is-select
   
 === Dependencies
 

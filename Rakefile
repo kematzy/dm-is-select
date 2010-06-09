@@ -13,10 +13,10 @@ begin
     gem.homepage = "http://github.com/kematzy/dm-is-select"
     gem.authors = ["kematzy"]
     gem.extra_rdoc_files = %w[ README.rdoc LICENSE TODO History.rdoc ]
-    gem.add_dependency 'dm-core',   '~> 1.0.0.rc3'
+    gem.add_dependency 'dm-core',   '~> 1.0.0'
     gem.add_development_dependency 'rspec',          '~> 1.3'
-    gem.add_development_dependency 'dm-migrations', '~> 1.0.0.rc3'
-    gem.add_development_dependency 'dm-validations', '~> 1.0.0.rc3'
+    gem.add_development_dependency 'dm-migrations', '~> 1.0.0'
+    gem.add_development_dependency 'dm-validations', '~> 1.0.0'
   end
   
   Jeweler::GemcutterTasks.new

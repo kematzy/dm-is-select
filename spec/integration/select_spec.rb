@@ -39,10 +39,6 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
       
     end
     
-    it "should use DM-Core 1.0.0.rc3" do
-      DataMapper::VERSION.should == '1.0.0.rc3'
-    end
-    
     
     describe "Class Methods" do 
       
