@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>DataMapper::Is::Select::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Module</span> 
+            DataMapper::Is::Select::ClassMethods 
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../../../files/lib/is/select_rb.html">lib/is/select.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-items_for_select_menu">items_for_select_menu</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+      <!-- Section attributes -->
+      <div class="sectiontitle">Attributes</div>
+      <table border='0' cellpadding='5'>
+        
+          <tr valign='top'>
+            <td class='attr-rw'>
+              [R]
+            </td>
+            <td class='attr-name'>select_field</td>
+            <td class='attr-desc'></td>
+          </tr>
+        
+          <tr valign='top'>
+            <td class='attr-rw'>
+              [R]
+            </td>
+            <td class='attr-name'>select_options</td>
+            <td class='attr-desc'></td>
+          </tr>
+        
+          <tr valign='top'>
+            <td class='attr-rw'>
+              [R]
+            </td>
+            <td class='attr-name'>value_field</td>
+            <td class='attr-desc'></td>
+          </tr>
+        
+      </table>
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-items_for_select_menu">
+            
+              <b>items_for_select_menu</b>(options = {})
+            
+            <a href="../../../../classes/DataMapper/Is/Select/ClassMethods.html#method-i-items_for_select_menu" name="method-i-items_for_select_menu" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Provides the Model content in a ready to use <code>&lt;select&gt;</code>
+options array</p>
+
+<h4 id="method-i-items_for_select_menu-label-Params">Params</h4>
+<ul><li>
+<p>:options</p>
+<ul><li>
+<p>:prompt [String/Boolean] =&gt;  The text shown on the
+<code>&lt;select&gt;</code> field in the browser. (Defaults to “<a
+href="../Select.html">Select</a> NameOfYourModel”)</p>
+</li><li>
+<p>:divider [Boolean] =&gt;  Whether to add a divider/separator between the
+prompt and the main options. (Defaults to <code>true</code>)</p>
+</li><li>
+<p>:order [Array]  =&gt;  A normal DM order declaration.  (Defaults to [:name]
+or the name of the <a
+href="ClassMethods.html#attribute-i-select_field">#select_field</a>
+declared)</p>
+</li><li>
+<p>:show_root [Boolean] =&gt; Whether to add the Top Level Parent in the
+choices. (Defaults to <code>true</code>)</p>
+</li><li>
+<p>:root_text [String] =&gt; The text to show as the Parent item in select
+list. (Defaults to “Top Level NameOfYourModel”)</p>
+</li></ul>
+</li></ul>
+
+<h4 id="method-i-items_for_select_menu-label-Examples">Examples</h4>
+
+<pre class="ruby"><span class="ruby-constant">Category</span>.<span class="ruby-identifier">items_for_select_menu</span>  
+  =<span class="ruby-operator">&gt;</span> [ [<span class="ruby-keyword">nil</span>, <span class="ruby-string">'Select Category'</span>], [<span class="ruby-keyword">nil</span>, <span class="ruby-string">'---'</span>], [<span class="ruby-value">1</span>, <span class="ruby-string">'Category 1'</span>] ,<span class="ruby-operator">...</span>.]
+
+<span class="ruby-constant">Category</span>.<span class="ruby-identifier">items_for_select_menu</span>(:<span class="ruby-identifier">prompt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Custom Prompt&quot;</span>)  
+  =<span class="ruby-operator">&gt;</span> [ [<span class="ruby-keyword">nil</span>, <span class="ruby-string">'Custom Prompt'</span>],<span class="ruby-operator">...</span>]
+
+<span class="ruby-constant">Category</span>.<span class="ruby-identifier">items_for_select_menu</span>(:<span class="ruby-identifier">prompt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)  
+  =<span class="ruby-operator">&gt;</span> [ [<span class="ruby-value">1</span>, <span class="ruby-string">'Category 1'</span>] ,<span class="ruby-operator">...</span>]
+
+<span class="ruby-constant">Category</span>.<span class="ruby-identifier">items_for_select_menu</span>(:<span class="ruby-identifier">divider</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span> )  
+  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">array</span> <span class="ruby-identifier">without</span> <span class="ruby-identifier">the</span> [<span class="ruby-keyword">nil</span>, <span class="ruby-string">'---'</span>] <span class="ruby-identifier">node</span>
+
+<span class="ruby-constant">Category</span>.<span class="ruby-identifier">items_for_select_menu</span>(:<span class="ruby-identifier">order</span> =<span class="ruby-operator">&gt;</span> [ :<span class="ruby-identifier">id</span>.<span class="ruby-identifier">desc</span> ] )  
+  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">array</span> <span class="ruby-identifier">with</span> <span class="ruby-identifier">the</span> <span class="ruby-identifier">order</span> <span class="ruby-identifier">reversed</span>. (<span class="ruby-constant">Prompts</span> &amp; <span class="ruby-identifier">divider</span> <span class="ruby-identifier">always</span> <span class="ruby-identifier">comes</span> <span class="ruby-identifier">first</span>)
+
+<span class="ruby-constant">Category</span>.<span class="ruby-identifier">items_for_select_menu</span>(:<span class="ruby-identifier">publish_status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;on&quot;</span>, :<span class="ruby-identifier">order</span> =<span class="ruby-operator">&gt;</span> [ :<span class="ruby-identifier">id</span>.<span class="ruby-identifier">desc</span> ] )  
+  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">returns</span> <span class="ruby-identifier">only</span> <span class="ruby-identifier">those</span> <span class="ruby-identifier">items</span> <span class="ruby-identifier">that</span> <span class="ruby-identifier">matches</span> <span class="ruby-identifier">the</span> <span class="ruby-identifier">query</span> <span class="ruby-identifier">params</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">just</span> <span class="ruby-identifier">an</span> <span class="ruby-identifier">empty</span> <span class="ruby-constant">Select</span> <span class="ruby-constant">Menu</span>
+</pre>
+
+<p>If your model is a Tree:</p>
+
+<pre class="ruby"><span class="ruby-constant">Category</span>.<span class="ruby-identifier">items_for_select_menu</span>(:<span class="ruby-identifier">root_text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Custom Root Text&quot;</span>)  <span class="ruby-comment"># sets the text for the Top Level (root) Parent</span>
+  =<span class="ruby-operator">&gt;</span> [ <span class="ruby-operator">...</span>, [<span class="ruby-value">0</span>, <span class="ruby-string">'Custom Root Text'</span>],<span class="ruby-operator">...</span>]
+
+<span class="ruby-constant">Category</span>.<span class="ruby-identifier">items_for_select_menu</span>(:<span class="ruby-identifier">show_root</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)  <span class="ruby-comment"># removes the Top Level (root) Parent from the</span>
+</pre>
+
+<p>@api public</p>
+            </div>
+          
+          
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-items_for_select_menu_source')" id="l_method-i-items_for_select_menu_source">show</a>
+                
+              </p>
+              <div id="method-i-items_for_select_menu_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File lib/is/select.rb, line 102</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">items_for_select_menu</span>(<span class="ruby-identifier">options</span> = {}) 
+  <span class="ruby-comment"># clean out the various parts</span>
+  <span class="ruby-identifier">html_options</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">:prompt</span>, <span class="ruby-value">:divider</span>, <span class="ruby-value">:show_root</span>, <span class="ruby-value">:root_text</span>)
+  <span class="ruby-identifier">sql_options</span>  = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">except</span>(<span class="ruby-value">:prompt</span>, <span class="ruby-value">:divider</span>, <span class="ruby-value">:show_root</span>, <span class="ruby-value">:root_text</span>)
+  
+  <span class="ruby-comment"># defaults</span>
+  <span class="ruby-identifier">html_options</span> = {
+    <span class="ruby-value">:prompt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;Select #{self.name}&quot;</span>,
+    <span class="ruby-value">:divider</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+    <span class="ruby-value">:show_root</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+    <span class="ruby-value">:root_text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;Top Level #{self.name}&quot;</span>,
+  }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">html_options</span>)
+  
+  <span class="ruby-identifier">sql_options</span> = {
+    <span class="ruby-value">:order</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_field</span>.<span class="ruby-identifier">to_sym</span>],
+  }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">sql_options</span>)
+  
+  <span class="ruby-identifier">mi</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_options</span>[<span class="ruby-value">:is_tree</span>] <span class="ruby-operator">?</span>  <span class="ruby-identifier">all</span>({ <span class="ruby-value">:parent_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span> }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">sql_options</span>) ) <span class="ruby-operator">:</span>  <span class="ruby-identifier">all</span>(<span class="ruby-identifier">sql_options</span>)
+  
+  <span class="ruby-identifier">res</span> = []
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">html_options</span>[<span class="ruby-value">:prompt</span>]
+    <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">html_options</span>[<span class="ruby-value">:prompt</span>]] 
+    <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">'nil'</span>, <span class="ruby-string">&quot;  ------  &quot;</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">html_options</span>[<span class="ruby-value">:divider</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_options</span>[<span class="ruby-value">:is_tree</span>]
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">html_options</span>[<span class="ruby-value">:show_root</span>]
+        <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-number">0</span>, <span class="ruby-identifier">html_options</span>[<span class="ruby-value">:root_text</span>]] 
+        <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">'nil'</span>,<span class="ruby-string">&quot;  ------  &quot;</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">html_options</span>[<span class="ruby-value">:divider</span>]
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_options</span>[<span class="ruby-value">:is_tree</span>]
+    <span class="ruby-identifier">mi</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">x</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">value_field</span>), <span class="ruby-identifier">x</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_field</span>)]
+      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">blank?</span>
+        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">child</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">value_field</span>), <span class="ruby-node">&quot;-- #{child.send(self.select_field)}&quot;</span>]
+          <span class="ruby-identifier">child</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">grand_child</span><span class="ruby-operator">|</span> 
+            <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [ <span class="ruby-identifier">grand_child</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">value_field</span>), <span class="ruby-node">&quot;-- -- #{grand_child.send(self.select_field)}&quot;</span>] 
+          <span class="ruby-keyword">end</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">blank?</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">mi</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">x</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">value_field</span>), <span class="ruby-identifier">x</span>.<span class="ruby-identifier">send</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_field</span>)]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">res</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

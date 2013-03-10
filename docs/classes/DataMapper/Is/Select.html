@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>DataMapper::Is::Select</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Module</span> 
+            DataMapper::Is::Select 
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../../files/lib/is/select_rb.html">lib/is/select.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-dm-is-select">dm-is-select</h1>
+
+<p>A <a href="../../DataMapper.html">DataMapper</a> plugin that makes getting
+the <code>&lt;select&gt;</code> options from a Model easier.</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+    <!-- Namespace -->
+    <div class="sectiontitle">Namespace</div>
+    <ul>
+      
+        <li>
+          <span class="type">MODULE</span>
+          <a href="Select/ClassMethods.html">DataMapper::Is::Select::ClassMethods</a>
+        </li>
+      
+    </ul>
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-is_select">is_select</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+      <!-- Section constants -->
+      <div class="sectiontitle">Constants</div>
+      <table border='0' cellpadding='5'>
+        
+          <tr valign='top'>
+            <td class="attr-name">VERSION</td>
+            <td>=</td>
+            <td class="attr-value">IO.read(&quot;#{File.dirname(__FILE__)}/../../VERSION&quot;).chomp</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+      </table>
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-is_select">
+            
+              <b>is_select</b>(select_field = :name, options = {})
+            
+            <a href="../../../classes/DataMapper/Is/Select.html#method-i-is_select" name="method-i-is_select" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Defines the field to use for the select menu</p>
+
+<h4 id="method-i-is_select-label-Params+">Params </h4>
+<ul><li>
+<p>:field_name   =&gt; the name of the field values shown in select</p>
+</li><li>
+<p>:options</p>
+<ul><li>
+<p>:is_tree  =&gt;  whether if the current Model is an is :tree model.
+(Defaults to false)</p>
+</li></ul>
+</li></ul>
+
+<h4 id="method-i-is_select-label-Examples">Examples</h4>
+
+<pre class="ruby"><span class="ruby-identifier">is</span> :<span class="ruby-identifier">select</span>, :<span class="ruby-identifier">name</span> 
+  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">creates</span> <span class="ruby-identifier">a</span> <span class="ruby-operator">&lt;</span><span class="ruby-identifier">select</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span> <span class="ruby-identifier">array</span> <span class="ruby-identifier">on</span> <span class="ruby-identifier">the</span> :<span class="ruby-identifier">name</span> <span class="ruby-identifier">attribute</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">the</span> <span class="ruby-identifier">model</span> 
+
+<span class="ruby-identifier">is</span> :<span class="ruby-identifier">select</span>, :<span class="ruby-identifier">name</span>, :<span class="ruby-identifier">is_tree</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>  
+    =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">creates</span> <span class="ruby-identifier">a</span> <span class="ruby-operator">&lt;</span><span class="ruby-identifier">select</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span> <span class="ruby-identifier">array</span> <span class="ruby-identifier">with</span> <span class="ruby-identifier">the</span> <span class="ruby-identifier">results</span> <span class="ruby-identifier">ordered</span> <span class="ruby-keyword">in</span> <span class="ruby-identifier">hierarchical</span> <span class="ruby-identifier">order</span>
+       <span class="ruby-identifier">parent</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">child</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">grandchild</span> <span class="ruby-keyword">for</span> <span class="ruby-identifier">each</span> <span class="ruby-identifier">parent</span>
+
+<span class="ruby-identifier">is</span> :<span class="ruby-identifier">select</span>, :<span class="ruby-identifier">name</span>, :<span class="ruby-identifier">value_field</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">code</span>  
+    =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">creates</span> <span class="ruby-identifier">a</span> <span class="ruby-operator">&lt;</span><span class="ruby-identifier">select</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span> <span class="ruby-identifier">array</span> <span class="ruby-identifier">with</span> <span class="ruby-identifier">the</span> <span class="ruby-identifier">results</span> <span class="ruby-identifier">ordered</span> <span class="ruby-keyword">in</span> <span class="ruby-identifier">hierarchical</span> <span class="ruby-identifier">order</span>
+       <span class="ruby-identifier">parent</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">child</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">grandchild</span> <span class="ruby-keyword">for</span> <span class="ruby-identifier">each</span> <span class="ruby-identifier">parent</span>
+</pre>
+
+<p>@api public</p>
+            </div>
+          
+          
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-is_select_source')" id="l_method-i-is_select_source">show</a>
+                
+              </p>
+              <div id="method-i-is_select_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File lib/is/select.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">is_select</span>(<span class="ruby-identifier">select_field</span> = <span class="ruby-value">:name</span>, <span class="ruby-identifier">options</span> = {}) 
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;The :select_field, must be an existing attribute in the Model. Got [ #{select_field.inspect} ]&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">any?</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">select_field</span>.<span class="ruby-identifier">to_sym</span> }
+  
+  <span class="ruby-ivar">@select_options</span> = {
+    <span class="ruby-value">:value_field</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;id&quot;</span>, 
+    <span class="ruby-comment"># add specical features if we are working with Tree Model</span>
+    <span class="ruby-value">:is_tree</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>
+  }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)
+  
+  <span class="ruby-ivar">@select_field</span> = <span class="ruby-identifier">select_field</span>
+  <span class="ruby-ivar">@value_field</span> = <span class="ruby-ivar">@select_options</span>[<span class="ruby-value">:value_field</span>]
+  
+  
+  <span class="ruby-comment"># Add class &amp; Instance methods</span>
+  <span class="ruby-identifier">extend</span>  <span class="ruby-constant">DataMapper</span><span class="ruby-operator">::</span><span class="ruby-constant">Is</span><span class="ruby-operator">::</span><span class="ruby-constant">Select</span><span class="ruby-operator">::</span><span class="ruby-constant">ClassMethods</span>
+  <span class="ruby-comment"># include DataMapper::Is::Select::InstanceMethods</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    
