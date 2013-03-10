@@ -5,16 +5,22 @@ A DataMapper plugin that makes getting the <tt><select></tt> options from a Mode
 
 == Installation
 
-  #  Add Gemcutter to your RubyGems sources 
-  $  gem sources -a http://gemcutter.com
-
   $  gem install dm-is-select
+  
+  
+Or add the gem to your Gemfile, and then run <tt>bundle install</tt>.
+
+  gem 'dm-is-select', 'CURRENT_VERSION_NUMBER'
+
   
 === Dependencies
 
 The plugin depends upon the following:
 
-* dm-core ( >= 1.0.0)
+* dm-mysql-adapter  OR  dm-sqlite3-adapter ( >= 1.2.0)
+* data_mapper ( >= 1.2.0)
+* dm-is-tree ( >= 1.2.0)
+* activesupport (>= 3.2.7)  -  methods => Hash#except  and  Hash#slice
 
 
 == Getting Started
@@ -148,7 +154,7 @@ OK, I admit it, not the most impressive DM plugin there is, but hey, it sure hel
 
 == RTFM 
 
-For a better understanding of this gem/plugin, make sure you study the '<tt>dm-is-select/spec/integration/select_spec.rb</tt>' file.
+For a better understanding of this gem/plugin, make sure you study the '<tt>dm-is-select/spec/dm-is-select_spec.rb</tt>' file.
  
 
 == Errors / Bugs
@@ -156,10 +162,29 @@ For a better understanding of this gem/plugin, make sure you study the '<tt>dm-i
 If something is not behaving intuitively, it is a bug, and should be reported.
 Report it here: http://github.com/kematzy/dm-is-select/issues 
 
-== Credits
 
-Copyright (c) 2009-07-12 Kematzy [ kematzy gmail com ]
+== Contributing to dm-is-select
+ 
+* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
+
+* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
+
+* Fork the project.
+
+* Start a feature/bugfix branch.
+
+* Commit and push until you are happy with your contribution.
+
+* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+
+* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
+
+== Copyright
+
+Copyright (c) 2009 - 2013 Kematzy.
 
 == Licence
 
 Released under the MIT license.
+
