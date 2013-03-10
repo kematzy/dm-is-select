@@ -1,7 +1,7 @@
-require 'pathname'
-require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
+require_relative './spec_helper'
 
 if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
+  
   describe 'DataMapper::Is::Select' do
     
     before(:each) do 
@@ -39,6 +39,13 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
       
     end
     
+    describe "VERSION" do 
+      
+      it "should have a VERSION constant" do 
+        DataMapper::Is::Select::VERSION.should match(/\d\.\d+\.\d+/)
+      end
+      
+    end #/ VERSION
     
     describe "Class Methods" do 
       
@@ -62,14 +69,14 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
         it "should raise an ArgumentError if non-existant field is provided" do 
           lambda { 
             class Dummy
-            include DataMapper::Resource
-            property :id, Serial
-            property :name, String
+              include DataMapper::Resource
+              property :id, Serial
+              property :name, String
+              
+              is :select, :does_not_exist
+            end 
             
-            is :select, :does_not_exist
-          end 
-          
-          DataMapper.auto_migrate!
+            DataMapper.auto_migrate!
           }.should raise_error(ArgumentError)
         end
         
@@ -317,9 +324,14 @@ if HAS_SQLITE3 || HAS_MYSQL || HAS_POSTGRES
       
     end #/ Class Methods
     
-    # describe "Instance Methods" do 
-    #   
-    # end #/ Instance Methods
+    describe "Instance Methods" do 
+      
+      it "are not defined with this DataMapper plugin" do 
+        1.should == 1
+      end
+      
+      
+    end #/ Instance Methods
     
   end #/ DataMapper::Is::Select
   

@@ -8,7 +8,8 @@ module DataMapper
     # 
     # 
     # 
-    module Select
+    module Select 
+      VERSION   = IO.read("#{File.dirname(__FILE__)}/../../VERSION").chomp
       
       ##
       # Defines the field to use for the select menu
@@ -100,10 +101,11 @@ module DataMapper
         # @api public
         def items_for_select_menu(options = {}) 
           # clean out the various parts
-          html_options = options.only(:prompt, :divider, :show_root, :root_text)
-          sql_options = options.except(:prompt, :divider, :show_root, :root_text)
+          html_options = options.slice(:prompt, :divider, :show_root, :root_text)
+          sql_options  = options.except(:prompt, :divider, :show_root, :root_text)
           
-          options = {
+          # defaults
+          html_options = {
             :prompt => "Select #{self.name}",
             :divider => true,
             :show_root => true,
@@ -117,13 +119,13 @@ module DataMapper
           mi = self.select_options[:is_tree] ?  all({ :parent_id => nil }.merge(sql_options) ) :  all(sql_options)
           
           res = []
-          if options[:prompt]
-            res << [nil, options[:prompt]] 
-            res << ['nil', "  ------  "] if options[:divider]
+          if html_options[:prompt]
+            res << [nil, html_options[:prompt]] 
+            res << ['nil', "  ------  "] if html_options[:divider]
             if self.select_options[:is_tree]
-              if options[:show_root]
-                res << [0, options[:root_text]] 
-                res << ['nil',"  ------  "] if options[:divider]
+              if html_options[:show_root]
+                res << [0, html_options[:root_text]] 
+                res << ['nil',"  ------  "] if html_options[:divider]
               end
             end
           end
